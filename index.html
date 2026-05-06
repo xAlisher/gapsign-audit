@@ -52,6 +52,28 @@
     .tag.nfc { border-color: #1C8A80; color: #1C8A80; }
     .tag.qr  { border-color: #FF6400; color: #FF6400; }
     .tag.pin { border-color: #7a6fff; color: #7a6fff; }
+
+    .screen textarea {
+      width: 180px;
+      margin-top: 0.4rem;
+      background: #111;
+      border: 1px solid #2a2a2a;
+      border-radius: 6px;
+      color: #ccc;
+      font-size: 0.7rem;
+      font-family: inherit;
+      padding: 0.35rem 0.4rem;
+      resize: vertical;
+      min-height: 52px;
+      outline: none;
+      display: block;
+    }
+    .screen textarea:focus {
+      border-color: #444;
+    }
+    .screen textarea::placeholder {
+      color: #444;
+    }
   </style>
 </head>
 <body>
@@ -427,6 +449,23 @@
     </div>
   </div>
 </div>
+
+
+<script>
+  // Persist comments in localStorage keyed by image src
+  document.querySelectorAll('.screen').forEach(function(screen) {
+    var img = screen.querySelector('img');
+    if (!img) return;
+    var key = 'comment:' + img.getAttribute('src');
+    var ta = document.createElement('textarea');
+    ta.placeholder = 'notes…';
+    ta.value = localStorage.getItem(key) || '';
+    ta.addEventListener('input', function() {
+      localStorage.setItem(key, ta.value);
+    });
+    screen.appendChild(ta);
+  });
+</script>
 
 </body>
 </html>
