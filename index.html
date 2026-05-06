@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GapSign UI Audit</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #0d0d0d;
+      color: #e0e0e0;
+      padding: 2rem;
+    }
+    h1 { font-size: 1.6rem; color: #FF6400; margin-bottom: 0.25rem; }
+    .meta { font-size: 0.8rem; color: #666; margin-bottom: 2.5rem; }
+    .flow { margin-bottom: 3rem; }
+    .flow-header {
+      display: flex; align-items: baseline; gap: 0.75rem;
+      border-bottom: 1px solid #222; padding-bottom: 0.5rem; margin-bottom: 1.25rem;
+    }
+    .flow-title { font-size: 1.1rem; font-weight: 600; color: #fff; }
+    .flow-desc { font-size: 0.82rem; color: #888; }
+    .screens { display: flex; flex-wrap: wrap; gap: 1.25rem; }
+    .screen { width: 180px; }
+    .screen img {
+      width: 180px;
+      border-radius: 10px;
+      border: 1px solid #2a2a2a;
+      display: block;
+    }
+    .screen-label {
+      font-size: 0.72rem; color: #777;
+      margin-top: 0.4rem; text-align: center; line-height: 1.3;
+    }
+    .screen-note {
+      font-size: 0.7rem; color: #555;
+      margin-top: 0.2rem; text-align: center; font-style: italic;
+    }
+    .missing {
+      width: 180px; height: 320px;
+      border: 1px dashed #333; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      color: #444; font-size: 0.72rem; text-align: center; padding: 0.5rem;
+    }
+    .tag {
+      display: inline-block;
+      background: #1a1a1a; border: 1px solid #333; border-radius: 4px;
+      font-size: 0.68rem; color: #888;
+      padding: 0.1rem 0.4rem; margin-right: 0.3rem;
+    }
+    .tag.nfc { border-color: #1C8A80; color: #1C8A80; }
+    .tag.qr  { border-color: #FF6400; color: #FF6400; }
+    .tag.pin { border-color: #7a6fff; color: #7a6fff; }
+  </style>
+</head>
+<body>
+
+<h1>GapSign UI Audit</h1>
+<p class="meta">57 screens &middot; 14 flows &middot; tech.gapsign debug &middot; Samsung Galaxy &middot; 2026-05-06</p>
+
+<div class="flow">
+  <div class="flow-header">
+    <span class="flow-title">01 &mdash; Dashboard</span>
+    <span class="flow-desc">Entry screen. 4 menu items + purchase notice + Scan FAB.</span>
+  </div>
+  <div class="screens">
+    <div class="screen">
+      <img src="flow-01-dashboard/01-dashboard.png" loading="lazy">
+      <div class="screen-label">Dashboard</div>
+      <div class="screen-note">Purchase notice visible</div>
+    </div>
+  </div>
+</div>
+
+<div class="flow">
+  <div class="flow-header">
+    <span class="flow-title">02 &mdash; Connect Software Wallet</span>
+    <span class="flow-desc">Export xpub/address via animated QR (BC-UR). Requires NFC + PIN.</span>
+    <span class="tag nfc">NFC</span><span class="tag pin">PIN</span><span class="tag qr">QR</span>
+  </div>
+  <div class="screens">
+    <div class="screen">
+      <img src="flow-02-connect-wallet/01-export-key-menu.png" loading="lazy">
+      <div class="screen-label">Export key menu</div>
+    </div>
+    <div class="screen">
+      <img src="flow-02-connect-wallet/02-export-key-options.png" loading="lazy">
+      <div class="screen-label">Wallet options</div>
+      <div class="screen-note">Blue Wallet, Electrum, Sparrow&hellip;</div>
+    </div>
+    <div class="screen">
+      <img src="flow-02-connect-wallet/03-export-key-scrolled.png" loading="lazy">
+      <div class="screen-label">Options scrolled</div>
+    </div>
+    <div class="screen">
+      <img src="flow-02-connect-wallet/04-exportkey-pin.png" loading="lazy">
+      <div class="screen-label">PIN entry</div>
+      <div class="screen-note">Shuffled pad</div>
+    </div>
+    <div class="screen">
+      <img src="flow-02-connect-wallet/05-qrresult-export-key.png" loading="lazy">
+      <div class="screen-label">QR result</div>
+      <div class="screen-note">Animated BC-UR xpub</div>
+    </div>
+  </div>
+</div>
+
+<div class="flow">
+  <div class="flow-header">
+    <span class="flow-title">03 &mdash; Addresses</span>
+    <span class="flow-desc">Derive and display ETH/BTC address lists from card.</span>
+    <span class="tag nfc">NFC</span><span class="tag pin">PIN</span>
+  </div>
+  <div class="screens">
+    <div class="screen">
+      <img src="flow-03-addresses/01-address-menu.png" loading="lazy">
+      <div class="screen-label">Address menu</div>
+      <div class="screen-note">ETH / BTC choice</div>
+    </div>
+    <div class="screen">
+      <img src="flow-03-addresses/02-eth-pin.png" loading="lazy">
+      <div class="screen-label">ETH &mdash; PIN entry</div>
+    </div>
+    <div class="screen">
+      <img src="flow-03-addresses/03-eth-list.png" loading="lazy">
+      <div class="screen-label">ETH address list</div>
+    </div>
+    <div class="screen">
+      <img src="flow-03-addresses/04-btc-pin.png" loading="lazy">
+      <div class="screen-label">BTC &mdash; PIN entry</div>
+    </div>
+    <div class="screen">
+      <img src="flow-03-addresses/05-btc-list.png" loading="lazy">
+      <div class="screen-label">BTC address list</div>
+    </div>
+  </div>
+</div>
+
+<div class="flow">
+  <div class="flow-header">
+    <span class="flow-title">04 &mdash; Address Detail</span>
+    <span class="flow-desc">Single address with QR, copy, and derivation path info.</span>
+  </div>
+  <div class="screens">
+    <div class="screen">
+      <img src="flow-14-address-detail/eth-list-address-detail.png" loading="lazy">
+      <div class="screen-label">ETH address (list)</div>
+    </div>
+    <div class="screen">
+      <img src="flow-14-address-detail/eth-donation-address-detail.png" loading="lazy">
+      <div class="screen-label">ETH address (donation)</div>
+    </div>
+    <div class="screen">
+      <img src="flow-14-address-detail/btc-address-detail.png" loading="lazy">
+      <div class="screen-label">BTC address</div>
+    </div>
+  </div>
+</div>
+
+<div class="flow">
+  <div class="flow-header">
+    <span class="flow-title">05 &mdash; Keycard Menu</span>
+    <span class="flow-desc">Card management: name, secrets, factory reset, pairing slots.</span>
+  </div>
+  <div class="screens">
+    <div class="screen">
+      <img src="flow-04-keycard/01-keycard-menu.png" loading="lazy">
+      <div class="screen-label">Keycard menu</div>
+    </div>
+    <div class="screen">
+      <img src="flow-04-keycard/02-set-card-name.png" loading="lazy">
+      <div class="screen-label">Set card name</div>
+    </div>
+    <div class="screen">
+      <img src="flow-04-keycard/03-secrets-menu.png" loading="lazy">
+      <div class="screen-label">Secrets menu</div>
+    </div>
+    <div class="screen">
+      <img src="flow-04-keycard/04-factory-reset.png" loading="lazy">
+      <div class="screen-label">Factory reset confirm</div>
+    </div>
+    <div class="screen">
+      <img src="flow-04-keycard/05-secrets-submenu.png" loading="lazy">
+      <div class="screen-label">Secrets submenu</div>
+    </div>
+    <div class="screen">
+      <img src="flow-04-keycard/06-change-pin.png" loading="lazy">
+      <div class="screen-label">Change PIN</div>
+    </div>
+    <div class="screen">
+      <img src="flow-04-keycard/07-change-puk.png" loading="lazy">
+      <div class="screen-label">Change PUK</div>
+    </div>
+    <div class="screen">
+      <img src="flow-04-keycard/08-change-pairing-secret.png" loading="lazy">
+      <div class="screen-label">Change pairing secret</div>
+    </div>
+  </div>
+</div>
+
+<div class="flow">
+  <div class="flow-header">
+    <span class="flow-title">06 &mdash; Initialize Card</span>
+    <span class="flow-desc">Full card init: create PIN &rarr; duress question &rarr; duress PIN &rarr; NFC tap.</span>
+    <span class="tag nfc">NFC</span><span class="tag pin">PIN</span>
+  </div>
+  <div class="screens">
+    <div class="screen">
+      <img src="flow-10-init-card/01-create-pin.png" loading="lazy">
+      <div class="screen-label">Create PIN</div>
+    </div>
+    <div class="screen">
+      <img src="flow-10-init-card/02-confirm-pin.png" loading="lazy">
+      <div class="screen-label">Confirm PIN</div>
+    </div>
+    <div class="screen">
+      <img src="flow-10-init-card/03-duress-question.png" loading="lazy">
+      <div class="screen-label">Duress question</div>
+      <div class="screen-note">Enable/skip duress PIN</div>
+    </div>
+    <div class="screen">
+      <img src="flow-10-init-card/04-duress-pin.png" loading="lazy">
+      <div class="screen-label">Duress PIN</div>
+    </div>
+    <div class="screen">
+      <img src="flow-10-init-card/05-confirm-duress-pin.png" loading="lazy">
+      <div class="screen-label">Confirm duress PIN</div>
+    </div>
+    <div class="screen">
+      <img src="flow-10-init-card/06-nfc-init-waiting.png" loading="lazy">
+      <div class="screen-label">NFC waiting</div>
+      <div class="screen-note">Tap card to finalize</div>
+    </div>
+  </div>
+</div>
+
+<div class="flow">
+  <div class="flow-header">
+    <span class="flow-title">07 &mdash; Keypair Management</span>
+    <span class="flow-desc">Generate, import, verify BIP39 and SLIP39 key pairs. Load onto card via NFC.</span>
+    <span class="tag nfc">NFC</span><span class="tag pin">PIN</span>
+  </div>
+  <div class="screens">
+    <div class="screen">
+      <img src="flow-08-keypair/01-keypair-menu.png" loading="lazy">
+      <div class="screen-label">Keypair menu</div>
+    </div>
+    <div class="screen">
+      <img src="flow-08-keypair/02-key-size.png" loading="lazy">
+      <div class="screen-label">Key size</div>
+      <div class="screen-note">12 or 24 words</div>
+    </div>
+    <div class="screen">
+      <img src="flow-08-keypair/03-mnemonic-hidden.png" loading="lazy">
+      <div class="screen-label">Mnemonic hidden</div>
+    </div>
+    <div class="screen">
+      <img src="flow-08-keypair/04-mnemonic-revealed.png" loading="lazy">
+      <div class="screen-label">Mnemonic revealed</div>
+    </div>
+    <div class="screen">
+      <img src="flow-08-keypair/05-confirm-key.png" loading="lazy">
+      <div class="screen-label">Confirm key words</div>
+    </div>
+    <div class="screen">
+      <img src="flow-08-keypair/06-keypair-menu-full.png" loading="lazy">
+      <div class="screen-label">Full import menu</div>
+    </div>
+    <div class="screen">
+      <img src="flow-08-keypair/07-import-bip39.png" loading="lazy">
+      <div class="screen-label">Import BIP39</div>
+    </div>
+    <div class="screen">
+      <img src="flow-08-keypair/08-verify-bip39.png" loading="lazy">
+      <div class="screen-label">Verify BIP39</div>
+    </div>
+    <div class="screen">
+      <img src="flow-08-keypair/09-slip39-generate.png" loading="lazy">
+      <div class="screen-label">Generate SLIP39</div>
+    </div>
+    <div class="screen">
+      <img src="flow-08-keypair/10-slip39-import.png" loading="lazy">
+      <div class="screen-label">Import SLIP39</div>
+    </div>
+    <div class="screen">
+      <img src="flow-08-keypair/11-slip39-verify.png" loading="lazy">
+      <div class="screen-label">Verify SLIP39</div>
+    </div>
+  </div>
+</div>
+
+<div class="flow">
+  <div class="flow-header">
+    <span class="flow-title">08 &mdash; Pairing Slots</span>
+    <span class="flow-desc">View and remove device pairings stored on card.</span>
+    <span class="tag nfc">NFC</span>
+  </div>
+  <div class="screens">
+    <div class="screen">
+      <img src="flow-11-pairing-slots/01-pairing-slots.png" loading="lazy">
+      <div class="screen-label">Pairing slots</div>
+    </div>
+    <div class="screen">
+      <img src="flow-11-pairing-slots/02-unpair-dialog.png" loading="lazy">
+      <div class="screen-label">Unpair confirm dialog</div>
+    </div>
+  </div>
+</div>
+
+<div class="flow">
+  <div class="flow-header">
+    <span class="flow-title">09 &mdash; About</span>
+    <span class="flow-desc">App version, links, open-source licenses.</span>
+  </div>
+  <div class="screens">
+    <div class="screen">
+      <img src="flow-05-about/01-about.png" loading="lazy">
+      <div class="screen-label">About</div>
+    </div>
+    <div class="screen">
+      <img src="flow-05-about/02-about-scrolled.png" loading="lazy">
+      <div class="screen-label">About scrolled</div>
+    </div>
+    <div class="screen">
+      <img src="flow-05-about/03-about-licenses.png" loading="lazy">
+      <div class="screen-label">License list</div>
+    </div>
+    <div class="screen">
+      <img src="flow-05-about/04-license-detail.png" loading="lazy">
+      <div class="screen-label">License detail</div>
+    </div>
+  </div>
+</div>
+
+<div class="flow">
+  <div class="flow-header">
+    <span class="flow-title">10 &mdash; QR Scanner</span>
+    <span class="flow-desc">Camera-based animated UR/PSBT scanner. Entry point for signing.</span>
+  </div>
+  <div class="screens">
+    <div class="screen">
+      <img src="flow-06-scan-transaction/01-qr-scanner.png" loading="lazy">
+      <div class="screen-label">Scanner idle</div>
+    </div>
+    <div class="screen">
+      <img src="flow-06-scan-transaction/02-camera-permission-required.png" loading="lazy">
+      <div class="screen-label">Permission required</div>
+    </div>
+    <div class="screen">
+      <img src="flow-06-scan-transaction/03-qr-scanner-live.png" loading="lazy">
+      <div class="screen-label">Scanner live</div>
+    </div>
+  </div>
+</div>
+
+<div class="flow">
+  <div class="flow-header">
+    <span class="flow-title">11 &mdash; NFC Bottom Sheet</span>
+    <span class="flow-desc">Inline NFC prompt shown during any card-tap operation.</span>
+    <span class="tag nfc">NFC</span>
+  </div>
+  <div class="screens">
+    <div class="screen">
+      <img src="flow-07-keycard-nfc/01-nfc-waiting.png" loading="lazy">
+      <div class="screen-label">NFC waiting</div>
+      <div class="screen-note">"Hold card to back of phone"</div>
+    </div>
+    <div class="missing">connecting state<br>missing<br>(NFC signing issue)</div>
+    <div class="missing">success state<br>missing<br>(NFC signing issue)</div>
+    <div class="missing">error state<br>missing<br>(NFC signing issue)</div>
+  </div>
+</div>
+
+<div class="flow">
+  <div class="flow-header">
+    <span class="flow-title">12 &mdash; PIN Entry</span>
+    <span class="flow-desc">Shuffled 6-digit PIN pad before any authenticated NFC operation.</span>
+    <span class="tag pin">PIN</span>
+  </div>
+  <div class="screens">
+    <div class="screen">
+      <img src="flow-09-pin/01-pin-entry-shuffled.png" loading="lazy">
+      <div class="screen-label">PIN pad (shuffled)</div>
+    </div>
+  </div>
+</div>
+
+<div class="flow">
+  <div class="flow-header">
+    <span class="flow-title">13 &mdash; Transaction Review &amp; Signing</span>
+    <span class="flow-desc">PSBT/UR decoded, reviewed, and signed via NFC card &rarr; animated QR out.</span>
+    <span class="tag nfc">NFC</span><span class="tag pin">PIN</span><span class="tag qr">QR</span>
+  </div>
+  <div class="screens">
+    <div class="screen">
+      <img src="flow-13-tx-screens/01-tx-detail-invalid-psbt.png" loading="lazy">
+      <div class="screen-label">Invalid PSBT error</div>
+    </div>
+    <div class="screen">
+      <img src="flow-13-tx-screens/02-tx-detail-valid-psbt.png" loading="lazy">
+      <div class="screen-label">Transaction review</div>
+      <div class="screen-note">Amount, fee, addresses</div>
+    </div>
+    <div class="screen">
+      <img src="flow-13-tx-screens/03-sign-pin-entry.png" loading="lazy">
+      <div class="screen-label">Signing PIN entry</div>
+    </div>
+    <div class="missing">QR result<br>missing<br>(NFC signing issue)</div>
+  </div>
+</div>
+
+<div class="flow">
+  <div class="flow-header">
+    <span class="flow-title">14 &mdash; UrlQR</span>
+    <span class="flow-desc">Static QR for external URLs &mdash; air-gap safe link sharing.</span>
+    <span class="tag qr">QR</span>
+  </div>
+  <div class="screens">
+    <div class="screen">
+      <img src="flow-12-urlqr/01-urlqr-buy-keycard.png" loading="lazy">
+      <div class="screen-label">Buy Keycard</div>
+    </div>
+    <div class="screen">
+      <img src="flow-12-urlqr/02-urlqr-github.png" loading="lazy">
+      <div class="screen-label">GitHub repo</div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
